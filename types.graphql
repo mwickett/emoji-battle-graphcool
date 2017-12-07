@@ -1,0 +1,45 @@
+type File @model {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+}
+
+type User @model {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  votes: [Vote!]! @relation(name: "VotesOnUser")
+}
+
+type Emoji @model {
+  name: String!
+  id: ID! @isUnique
+  unicode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  participant1: Battle @relation(name: "FirstParticipant")
+  participant2: Battle @relation(name: "SecondParticipant")
+}
+
+type Battle @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  votes: [Vote!]! @relation(name: "VotesOnBattle")
+  participant1: Emoji! @relation(name: "FirstParticipant")
+  participant2: Emoji! @relation(name: "SecondParticipant")
+}
+
+type Vote @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User! @relation(name: "VotesOnUser")
+  battle: Battle! @relation(name: "VotesOnBattle")
+  pick: Boolean!
+}

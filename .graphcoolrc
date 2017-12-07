@@ -1,0 +1,3 @@
+targets:
+  EmojiBattle: shared-us-west-2/cjavrouuf4cv10122h0wvs2zq
+  default: EmojiBattle
